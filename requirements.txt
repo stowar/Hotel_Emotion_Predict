@@ -1,0 +1,20 @@
+# 核心后端框架
+fastapi==0.104.1
+uvicorn==0.24.0
+
+# 中文分词
+jieba==0.42.1
+# 数据验证（FastAPI依赖）
+pydantic==2.4.2
+# 跨域支持（前端调用必备）
+python-multipart==0.0.6
+numpy==1.26.4
+pandas
+matplotlib
+tqdm
+
+# AI模型推理（单独安装）
+torch==2.2.0+cpu
+torchvision==0.17.0
+torchaudio==2.2.0+cpu
+--index-url https://download.pytorch.org/whl/cpu
