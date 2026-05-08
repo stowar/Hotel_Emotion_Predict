@@ -1,0 +1,116 @@
+# ==========================================
+# 1. Python 通用忽略（所有Python项目必加）
+# ==========================================
+# Python 缓存文件
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# 虚拟环境（venv/env是最常用的命名）
+venv/
+env/
+ENV/
+.venv/
+
+# Jupyter Notebook 缓存
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ==========================================
+# 2. AI 项目专属忽略（你的NLP/YOLO项目必加）
+# ==========================================
+# 模型权重文件（大文件，绝对不要上传）
+*.pt
+*.pth
+*.pkl
+*.ckpt
+*.safetensors
+*.onnx
+*.pb
+*.h5
+*.hdf5
+
+# 数据集文件（大文件，不要上传）
+*.csv
+*.json
+*.xlsx
+*.xls
+*.txt
+*.zip
+*.rar
+*.7z
+# 常见数据集文件夹
+dataset/
+data/
+datasets/
+images/
+videos/
+audio/
+
+# ==========================================
+# 3. IDE 编辑器配置（你的PyCharm必加）
+# ==========================================
+# PyCharm / IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# ==========================================
+# 4. 日志、临时文件、数据存储
+# ==========================================
+# 日志文件
+*.log
+app.log
+error.log
+access.log
+
+# 临时数据存储（你的记账工具JSON记录）
+records.json
+*.db
+*.sqlite
+*.sqlite3
+
+# 系统临时文件
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# ==========================================
+# 5. 其他可选（根据你的项目调整）
+# ==========================================
+# 如果你用了FastAPI的静态文件输出
+static/output/
+output/
+result/
+
+# 如果你有本地配置文件（比如API密钥、数据库密码）
+config.py
+.env
+.env.local
+.env.*.local
