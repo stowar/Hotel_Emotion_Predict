@@ -2,7 +2,7 @@
 # ===================== 1. 导入依赖库 =====================
 import torch
 import torch.nn as nn
-from backend.config.settings import CONFIG
+from config.settings import CONFIG
 
 class Selfattention(nn.Module):
     def __init__(self, hidden_size):
@@ -23,7 +23,7 @@ class Selfattention(nn.Module):
         attn_weights = torch.softmax(attn_scores, dim=1)
         # 3. 加权求和：用注意力权重乘以对应词的特征，再求和
         context_vector = torch.sum(gru_output * attn_weights, dim=1)
-        return context_vector
+        return context_vector, attn_weights
 
 class HotelGRU(nn.Module):
     def __init__(self, vocab_size, embedding_dim, hidden_size, num_layers=CONFIG['num_layers'], dropout=CONFIG['dropout'], pad_idx=0):
@@ -71,13 +71,13 @@ class HotelGRU(nn.Module):
         embedded = self.embedding(text)
         # 2.GRU提取 -> output,hidden -> output: [1,50,256], hidden: [2,1,256]
         gru_output, hn = self.gru(embedded)
-        # 3.自注意力层加权 -> [1,256]
-        attn_attention = self.attention(gru_output)
+        # 3.自注意力层加权 -> context: [1,256], attn_weights: [1,50,1]
+        context_vector, attn_weights = self.attention(gru_output)
         # 4.dropout
-        dropout_output = self.dropout(attn_attention)
+        dropout_output = self.dropout(context_vector)
         # 5.全连接层 -> [1,2]
         output = self.fc(dropout_output)
-        return output,attn_attention
+        return output, attn_weights
 
 
 

@@ -9,7 +9,7 @@ import json
 warnings.filterwarnings('ignore')
 
 # ===================== 导入项目自定义模块 =====================
-from backend.config.settings import CONFIG  # 全局配置（路径、超参数等）
+from config.settings import CONFIG  # 全局配置（路径、超参数等）
 from data_process import get_dictionary, get_dataloader  # 数据预处理流水线
 from model import HotelGRU  # 三种情感分析模型
 

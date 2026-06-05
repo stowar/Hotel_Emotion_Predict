@@ -5,7 +5,8 @@ import jieba
 import pandas as pd
 from torch.utils.data import Dataset, DataLoader
 import torch
-from backend.config.settings import CONFIG
+from config.settings import CONFIG
+from config.constants import STOPWORDS
 
 # 测试
 from model import HotelGRU
@@ -21,6 +22,7 @@ def normalize_string(s):
     # 1.2 进行结巴分词
     word_list = jieba.lcut(s)
     # 1.3 过滤停用词
+    word_list = [w for w in word_list if w not in STOPWORDS]
     # 1.4 进行小写化
     return word_list
 

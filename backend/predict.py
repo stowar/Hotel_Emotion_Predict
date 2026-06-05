@@ -3,7 +3,7 @@ import torch
 from data_process import get_dictionary
 from model import HotelGRU
 from data_process import normalize_string
-from backend.config.settings import CONFIG
+from config.settings import CONFIG
 import torch.nn.functional as F
 
 # 定义全局变量
@@ -23,7 +23,7 @@ device = CONFIG["device"]
 def model_predict():
     # 初始化模型
     model = HotelGRU(vocab_size, embedding_dim, hidden_size)
-    model.load_state_dict(torch.load(r"./runs/model/model.pt", map_location=device))
+    model.load_state_dict(torch.load(r"./runs/model/model.pt", map_location=torch.device('cpu')))
     model.eval()
     while True:
         text = input("请输入要预测的文本：")
@@ -39,7 +39,7 @@ def model_predict():
         # 文本填充
         x += [0] * (max_length - len(x))
 
-        tensor_x = torch.tensor(x, dtype=torch.long).to(device)
+        tensor_x = torch.tensor(x, dtype=torch.long).to(torch.device('cpu'))
         # print(tensor_x.shape)
         tensor_x = tensor_x.unsqueeze(0)
         # print(tensor_x.shape)
@@ -50,7 +50,7 @@ def model_predict():
         pred_class = F.softmax(output, dim=1) # 单元素标量
         sentiment = "正面评论" if pred_class[0][1] > pred_class[0][0] else "负面评论"
         print(f"预测结果:\n{sentiment}|正面概率：{pred_class[0][1]:.2%}|负面概率：{pred_class[0][0]:.2%}")
-        with open(r"./runs/logs/predict.txt", "a", encoding="utf-8") as f:
+        with open(r"./runs/logs/predict.txt", "a", encoding="utf-8", errors="ignore") as f:
             f.write(f"{text}\t{1 if sentiment == '正面评论' else 0}\n")
 
 

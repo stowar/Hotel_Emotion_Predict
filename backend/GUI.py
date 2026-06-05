@@ -112,10 +112,9 @@ def update_charts(input_text, words, pos_prob, neg_prob, attn_weights):
 
     # --- 子图2：注意力权重热力图（核心修复） ---
     # 1. 正确处理注意力权重维度
-    attn_np = attn_weights.squeeze(0).cpu().numpy()  # 去掉batch维度，变成1D数组
+    attn_np = attn_weights.squeeze(0).cpu().numpy()  # 去掉batch维度 [50, 1]
     valid_len = min(len(words), max_length)
-    valid_words = words[:valid_len]
-    valid_attn = attn_np[:valid_len]  # 只取有效词的权重
+    valid_attn = attn_np[:valid_len, 0]  # 只取有效词, squeeze最后一维
     valid_attn_2d = valid_attn.reshape(1, -1)  # 转为2D数组，适配imshow
 
     # 2. 画热力图

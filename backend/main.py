@@ -78,7 +78,7 @@ def predict(request: PredictRequest):
     # 只返回有效词的注意力权重（转成list，方便JSON传输）
     valid_len = min(len(words), max_length)
     valid_words = words[:valid_len]
-    valid_attn = attn_weights[0][:valid_len].cpu().numpy().tolist()
+    valid_attn = attn_weights[0, :valid_len, 0].cpu().numpy().tolist()
 
     return PredictResponse(
         sentiment=sentiment,

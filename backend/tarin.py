@@ -6,7 +6,7 @@ import torch.nn as nn
 from data_process import get_dictionary, get_dataloader
 from model import HotelGRU
 import time
-from backend.config.settings import CONFIG
+from config.settings import CONFIG
 from tqdm import tqdm
 import os
 import matplotlib.pyplot as plt
@@ -106,8 +106,8 @@ def train_model():
     plt.savefig("./runs/logs/HotelGRU_acc.png")
     plt.show()
 
-    # 画注意力曲线
-    plt.matshow(attn.detach().cpu().numpy())
+    # 画注意力曲线（取最后一个batch的第一个样本，形状[50,1]→[50]）
+    plt.matshow(attn[0].detach().cpu().numpy().squeeze(-1).reshape(1, -1))
     plt.savefig("./runs/logs/HotelGRU_attn.png")
     plt.show()
 
